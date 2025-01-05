@@ -22,8 +22,17 @@ public class AdventureTime {
      * @throws IOException
      */
     public static int challengeOne(String fileName) throws IOException {
-        return 0;
+        int a = 0;
+        int[] z = readFile("inputOneTwo.txt");
+        for (int i = 1; i < z.length; i++) {
+            if (z[i] > z[i - 1]) {
+                a = a + 1;
+            }
+        }
+        return a;
     }
+
+
 
     /** TODO 2
      *
@@ -34,8 +43,28 @@ public class AdventureTime {
      * @throws FileNotFoundException
      */
     public static int challengeTwo(String fileName) throws FileNotFoundException {
-        return 0;
+        int[] y = readFile("inputOneTwo.txt");
+        int b = 0;
+
+        for (int i = 0; i < y.length - 3; i++) {
+            int sum1 = y[i] + y[i + 1] + y[i + 2];
+            int sum2 = y[i + 1] + y[i + 2] + y[i + 3];
+
+            if (sum2 > sum1) {
+                b++;
+            }
+            //else
+        }
+        return b;
     }
+
+public static void main(String[] args) {
+    String fileName = "inputOneTwo.txt";
+    int result = challengeTwo(fileName);
+    System.out.println("Number of sliding window sum increases: " + result);
+}
+
+
 
     /** TODO 3
      *
@@ -46,19 +75,57 @@ public class AdventureTime {
      * @throws FileNotFoundException
      */
     public static int challengeThree(String fileName) throws FileNotFoundException {
-        return 0;
-    }
+        int horizontal = 0;
+        int depth = 0;
+        String[] commands = readFileTwo("inputThreeFour.txt");
+        for (String command : commands) {
+            String[] commandParts = command.split(" ");
+            String direction = commandParts[0];
+            int posVal = Integer.parseInt(commandParts[1]);
+            if (direction.equals("forward")) {
+                horizontal += posVal;
+            } else if (direction.equals("up")) {
+                depth -= posVal;
+            } else if (direction.equals("down")) {
+                depth += posVal;
+            }
+        }
+        int finalPos = horizontal * depth;
+        return finalPos;
 
-    /** TODO 4
-     *
-     * Challenge 4
-     *
-     * @param filename
-     * @return Answer to Challenge 4
-     * @throws FileNotFoundException
-     */
+
+
+        /** TODO 4
+         *
+         * Challenge 4
+         *
+         * @param filename
+         * @return Answer to Challenge 4
+         * @throws FileNotFoundException
+         */
     public static int challengeFour(String filename) throws FileNotFoundException {
-        return 0;
+            int horizontal = 0;
+            int depth = 0;
+            int aim = 0;
+            String[] commands = readFileTwo("inputThreeFour.txt");
+            for (String command : commands) {
+                String[] commandParts = command.split(" ");
+                String direction = commandParts[0];
+                int posVal = Integer.parseInt(commandParts[1]);
+                if (direction.equals("forward")) {
+                    horizontal += posVal;
+                    depth += aim * posVal;
+                } else if (direction.equals("up")) {
+                    aim -= posVal;
+                } else if (direction.equals("down")) {
+                    aim += posVal;
+                }
+            }
+            int finalPos = horizontal * depth;
+            return finalPos;
+        }
+
+
     }
 
     /** This method will write the values passed as challengeOne, challengeTwo, challengeThree, and challengeFour to a text file.
